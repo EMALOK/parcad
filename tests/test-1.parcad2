@@ -1,0 +1,21 @@
+
+// generic point positioned by the solver
+center = point()
+
+// 2 concentric circles
+outer_circle = inside_surface( circle(point,15) )
+inner_circle = inside_surface( circle(point,10) )
+
+// create the hole
+surface = outer_circle.remove( inner_circle )
+
+/*
+
+dependecy:
+
+center
+-outer_circle \
+                *surface
+-inner_circle /
+
+*/

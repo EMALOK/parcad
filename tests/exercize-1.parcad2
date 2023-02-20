@@ -1,0 +1,41 @@
+
+main_axis = axis()
+
+perp_axis = axis( perp(main_axis) )
+
+//main hole
+hole_c = intersection( main_axis,perp_axis )
+
+hole = inside_surface( circle( hole_c,radius:20 ) )
+
+// slot
+slot_end_c = hole_c.quote( 100,main_axis ).Xpositive()
+slot_start_c = slot_end_c.quote( 30,main_axis ).Xnegative()
+
+slot_contour = {
+    arc( slot_start_c,radius:8,angle:180deg ) .tan.
+    line(30) .tan.
+    arc( slot_end_c,radius:8,angle:180dg ) .tan.
+    line( 30 ) .tan. 
+}
+
+slot_contour.joint( tan )
+
+slot = inside_surface( slot_contour )
+
+chamfer_c = hole_c.quote(62,perp_axis).Ynegative()
+
+shape = {
+    arc( anchor:hole_c,radius:32 )
+    arc( radius:30 )
+    line()
+    arc( anchor:slot_end_c,radius:20,angle:180deg )
+    line()
+    arc( radius:15 )
+    arc( anchor:hole_c,radius:72 )
+    arc( anchor:chamfer_c,radius:10 )
+
+}
+
+shape.joint( tan )
+

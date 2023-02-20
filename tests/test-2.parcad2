@@ -1,0 +1,21 @@
+
+
+top_left_center = point()
+
+hole = inside_surface( circle( point,2 ) )
+
+contour = {
+    arc( center:top_left_center,angle:90deg ) .tan.
+    line(4) .perp.
+    line(5) .perp.
+    arc(angle:90deg) .perp.
+    line(5) .perp.
+    line(4) .tan.
+}
+
+main_surface = inside_surface( contour )
+
+main_surface.remove( hole )
+
+// expose the result
+return main_surface
